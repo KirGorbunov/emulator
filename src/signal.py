@@ -106,18 +106,24 @@ class Signal:
 
         for _ in range(n):
             value = self._generator.__next__()
-            if self.type == "ushort-float16":
+            if self.type == "hfloat":
                 buf = min(max(value, -65534), 65535)
                 value = struct.unpack('H', struct.pack('e', buf))
-            elif self.type == "ushort-float32":
+            elif self.type == "float":
                 buf = min(max(value, -4294967294), 4294967295)
                 value = struct.unpack('HH', struct.pack('f', buf))[::-1]
-            elif self.type == "ushort-int16":
+            elif self.type == "short":
                 buf = int(min(max(value, -65534), 65535))
                 value = struct.unpack('H', struct.pack('h', buf))
-            elif self.type == "ushort-int32":
+            elif self.type == "int":
                 buf = int(min(max(value, -4294967294), 4294967295))
                 value = struct.unpack('HH', struct.pack('i', buf))[::-1]
+            elif self.type == "ushort":
+                buf = int(min(max(value, 0), 65535))
+                value = struct.unpack('H', struct.pack('H', buf))
+            elif self.type == "uint":
+                buf = int(min(max(value, 0), 4294967295))
+                value = struct.unpack('HH', struct.pack('I', buf))
             else:
                 value = [value]
             result.extend(value)
