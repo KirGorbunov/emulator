@@ -111,13 +111,13 @@ class Signal:
                 value = struct.unpack('H', struct.pack('e', buf))
             elif self.type == "float":
                 buf = min(max(value, -4294967294), 4294967295)
-                value = struct.unpack('HH', struct.pack('f', buf))[::-1]
+                value = struct.unpack('HH', struct.pack('f', buf))
             elif self.type == "short":
                 buf = int(min(max(value, -65534), 65535))
                 value = struct.unpack('H', struct.pack('h', buf))
             elif self.type == "int":
                 buf = int(min(max(value, -4294967294), 4294967295))
-                value = struct.unpack('HH', struct.pack('i', buf))[::-1]
+                value = struct.unpack('HH', struct.pack('i', buf))
             elif self.type == "ushort":
                 buf = int(min(max(value, 0), 65535))
                 value = struct.unpack('H', struct.pack('H', buf))
